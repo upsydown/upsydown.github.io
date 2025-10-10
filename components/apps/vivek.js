@@ -234,13 +234,13 @@ function Skills() {
 function Projects() {
     const project_list = [
         {
-            name: "UbuntuOS Portfolio",
-            date: "Apr 2021",
-            link: "https://github.com/vivek9patel/vivek9patel.github.io",
+            name: "upsydow.github.io",
+            date: "2025",
+            link: "https://upsydow.github.io/",
             description: [
-                "Personal portfolio website of theme Ubuntu 20.04, made using NEXT.js & tailwind CSS",
+                "Mon autre projet — version publique. Cliquez pour ouvrir le site.",
             ],
-            domains: ["javascript", "next.js", "tailwindcss"]
+            domains: ["javascript", "next.js"]
         },
         {
             name: "Chrome Extension React Bolierplate",
