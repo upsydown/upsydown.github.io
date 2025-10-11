@@ -148,7 +148,7 @@ export class Window extends Component {
         // get previous position
         let posx = r.style.getPropertyValue("--window-transform-x");
         let posy = r.style.getPropertyValue("--window-transform-y");
-
+        // restore previous transform (position)
         r.style.transform = `translate(${posx},${posy})`;
         setTimeout(() => {
             this.setState({ maximized: false });
@@ -164,9 +164,12 @@ export class Window extends Component {
             this.focusWindow();
             var r = document.querySelector("#" + this.id);
             this.setWinowsPosition();
-            // translate window to maximize position
-            r.style.transform = `translate(-1pt,-2pt)`;
-            this.setState({ maximized: true, height: 96.3, width: 100.2 });
+            // translate window to maximize position but leave a small top gap
+            // so the top bar with controls remains visible and clickable
+            const topGap = 28; // px gap from top to show controls
+            r.style.transform = `translate(0px, ${topGap}px)`;
+            // set to full width and full height to avoid showing wallpaper at bottom
+            this.setState({ maximized: true, height: 100, width: 100 });
             this.props.hideSideBar(this.id, true);
         }
     }
@@ -202,13 +205,18 @@ export class Window extends Component {
                 bounds={{ left: 0, top: 0, right: this.state.parentSize.width, bottom: this.state.parentSize.height }}
             >
                 <div style={{ width: `${this.state.width}%`, height: `${this.state.height}%` }}
-                    className={this.state.cursorType + " " + (this.state.closed ? " closed-window " : "") + (this.state.maximized ? " duration-300 rounded-none" : " rounded-lg rounded-b-none") + (this.props.minimized ? " opacity-0 invisible duration-200 " : "") + (this.props.isFocused ? " z-30 " : " z-20 notFocused") + " opened-window overflow-hidden min-w-1/4 min-h-1/4 main-window absolute window-shadow border-black border-opacity-40 border border-t-0 flex flex-col"}
+                    className={this.state.cursorType + " " + (this.state.closed ? " closed-window " : "") + (this.state.maximized ? " duration-300 rounded-none" : " rounded-lg rounded-b-none") + (this.props.minimized ? " opacity-0 invisible duration-200 " : "") + (this.props.isFocused ? " z-30 " : " z-20 notFocused") + " opened-window min-w-1/4 min-h-1/4 main-window absolute window-shadow border-black border-opacity-40 border border-t-0 flex flex-col"}
                     id={this.id}
                 >
                     <WindowYBorder resize={this.handleHorizontalResize} />
                     <WindowXBorder resize={this.handleVerticleResize} />
-                    <WindowTopBar title={this.props.title} />
-                    <WindowEditButtons minimize={this.minimizeWindow} maximize={this.maximizeWindow} isMaximised={this.state.maximized} close={this.closeWindow} id={this.id} />
+                    <div className="relative">
+                        <WindowTopBar title={this.props.title} />
+                        {/* keep edit buttons positioned on top so they remain visible in maximized/fullscreen */}
+                        <div className="absolute right-0 top-0 mt-1 mr-1 pointer-events-auto z-50">
+                            <WindowEditButtons minimize={this.minimizeWindow} maximize={this.maximizeWindow} isMaximised={this.state.maximized} close={this.closeWindow} id={this.id} />
+                        </div>
+                    </div>
                     {(this.id === "settings"
                         ? <Settings changeBackgroundImage={this.props.changeBackgroundImage} currBgImgName={this.props.bg_image_name} />
                         : <WindowMainScreen screen={this.props.screen} title={this.props.title}
@@ -262,6 +270,36 @@ export class WindowXBorder extends Component {
 
 // Window's Edit Buttons
 export function WindowEditButtons(props) {
+    // When the window is maximized, render the controls in fixed position
+    // so they won't get clipped by parent containers and stay clickable.
+    if (props.isMaximised) {
+        return (
+            <div style={{ position: 'fixed', top: '8px', right: '8px', zIndex: 9999 }} className="select-none flex justify-center items-center">
+                <span className="mx-1.5 bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full flex justify-center h-8 w-8 items-center" onClick={props.minimize}>
+                    <img
+                        src="./themes/Yaru/window/window-minimize-symbolic.svg"
+                        alt="ubuntu window minimize"
+                        className="h-5 w-5 inline"
+                    />
+                </span>
+                <span className="mx-2 bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full flex justify-center h-8 w-8 items-center" onClick={props.maximize}>
+                    <img
+                        src={props.isMaximised ? "./themes/Yaru/window/window-restore-symbolic.svg" : "./themes/Yaru/window/window-maximize-symbolic.svg"}
+                        alt={props.isMaximised ? "ubuntu window restore" : "ubuntu window maximize"}
+                        className="h-5 w-5 inline"
+                    />
+                </span>
+                <button tabIndex="-1" id={`close-${props.id}`} className="mx-1.5 focus:outline-none cursor-default bg-ub-orange bg-opacity-90 hover:bg-opacity-100 rounded-full flex justify-center h-8 w-8 items-center" onClick={props.close}>
+                    <img
+                        src="./themes/Yaru/window/window-close-symbolic.svg"
+                        alt="ubuntu window close"
+                        className="h-5 w-5 inline"
+                    />
+                </button>
+            </div>
+        )
+    }
+
     return (
         <div className="absolute select-none right-0 top-0 mt-1 mr-1 flex justify-center items-center">
             <span className="mx-1.5 bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full flex justify-center mt-1 h-5 w-5 items-center" onClick={props.minimize}>
