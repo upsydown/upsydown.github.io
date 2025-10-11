@@ -234,11 +234,11 @@ function Skills() {
 function Projects() {
     const project_list = [
         {
-            name: "upsydow.github.io",
+            name: "CSGO_OPPENING",
             date: "2025",
-            link: "https://upsydow.github.io/",
+            link: "https://upsydown.github.io/CSGO_OPPENING/",
             description: [
-                "Mon autre projet — version publique. Cliquez pour ouvrir le site.",
+                "Page publique du projet CSGO_OPPENING. Cliquez pour ouvrir le site.",
             ],
             domains: ["javascript", "next.js"]
         },

@@ -21,6 +21,8 @@ export class Window extends Component {
                 width: 100
             }
             ,
+            topGap: 0,
+            prevSize: null,
             // startX/startY will be computed client-side to center the window
             startX: null,
             startY: null
@@ -150,8 +152,17 @@ export class Window extends Component {
         let posy = r.style.getPropertyValue("--window-transform-y");
         // restore previous transform (position)
         r.style.transform = `translate(${posx},${posy})`;
+        // if we previously resized to pixel sizes, clear inline width/height so React's styles take over
+        r.style.width = '';
+        r.style.height = '';
         setTimeout(() => {
-            this.setState({ maximized: false });
+            // restore previous percent sizes if available
+            const prev = this.state.prevSize;
+            if (prev) {
+                this.setState({ maximized: false, width: prev.width, height: prev.height, topGap: 0, prevSize: null });
+            } else {
+                this.setState({ maximized: false, topGap: 0 });
+            }
             this.checkOverlap();
         }, 300);
     }
@@ -164,12 +175,19 @@ export class Window extends Component {
             this.focusWindow();
             var r = document.querySelector("#" + this.id);
             this.setWinowsPosition();
-            // translate window to maximize position but leave a small top gap
-            // so the top bar with controls remains visible and clickable
-            const topGap = 28; // px gap from top to show controls
+            // compute a top gap so the top bar with controls remains visible and clickable
+            const topGap = 36; // px gap from top to show controls (slightly larger)
+            // save previous percent sizes so we can restore later
+            this.setState({ prevSize: { width: this.state.width, height: this.state.height } });
+            // set inline pixel width/height to fully fill the viewport minus the top gap
+            const availW = window.innerWidth;
+            const availH = Math.max(0, window.innerHeight - topGap);
+            r.style.width = availW + 'px';
+            r.style.height = availH + 'px';
+            // translate window to start at topGap from top
             r.style.transform = `translate(0px, ${topGap}px)`;
-            // set to full width and full height to avoid showing wallpaper at bottom
-            this.setState({ maximized: true, height: 100, width: 100 });
+            // update state to maximized and record the gap
+            this.setState({ maximized: true, width: 100, height: 100, topGap: topGap });
             this.props.hideSideBar(this.id, true);
         }
     }

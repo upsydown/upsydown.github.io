@@ -2,12 +2,13 @@
   "name": "vivek9patel-portfolio",
   "version": "2.0.0",
   "private": true,
-  "homepage": "https://vivek9patel.github.io/",
+  "homepage": "https://upsydown.github.io/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export"
+    "export": "next export",
+    "deploy": "next build && next export && gh-pages -d out -b gh-pages"
   },
   "engines": {
     "node": ">=16.x"
@@ -26,8 +27,9 @@
     "react-ga4": "^2.1.0",
     "react-onclickoutside": "^6.12.2",
     "tailwindcss": "^3.2.4"
-  },
+  }
+  ,
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "gh-pages": "^5.0.0"
   }
 }
