@@ -11,8 +11,9 @@ export default function BackgroundImage(props) {
         "wall-7": "./images/wallpapers/wall-7.webp",
         "wall-8": "./images/wallpapers/wall-8.webp",
         "wall-9": "./images/wallpapers/wall-9.webp",
+        "wall-10": "./images/wallpapers/wall-10.webp",
     };
-    const imgKey = props.img && bg_images[props.img] ? props.img : 'wall-9';
+    const imgKey = props.img && bg_images[props.img] ? props.img : 'wall-10';
     return (
         <div style={{ backgroundImage: `url(${bg_images[imgKey]})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPositionX: "center" }} className="bg-ubuntu-img absolute -z-10 top-0 right-0 overflow-hidden h-full w-full">
         </div>
