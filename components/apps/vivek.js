@@ -115,25 +115,27 @@ export const displayAboutVivek = () => {
 
 function About() {
     return (
-        <>
-            <div className="w-20 md:w-28 my-4 bg-white rounded-full">
-                <img className="w-full" src="./images/logos/bitmoji.png" alt="Logo de Matt" />
+        <div className="flex flex-col items-center py-8 px-4">
+            <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gray-300 shadow mb-4">
+                <img
+                    src="https://github.com/upsydown.png"
+                    alt="Photo de profil GitHub"
+                    className="w-full h-full object-cover"
+                />
             </div>
-            <div className=" mt-4 md:mt-8 text-lg md:text-2xl text-center px-1">
-                <div>Je m'appelle <span className="font-bold">Matt</span></div>
-                <div className="font-normal ml-1">Je suis <span className="text-pink-600 font-bold">développeur front-end</span></div>
+            <div className="text-2xl font-bold text-gray-900 mb-1">Matteo Guerciob</div>
+            <div className="text-base text-gray-700 mb-4">Développeur Front-End | Étudiant en informatique</div>
+            <div className="max-w-xl text-sm text-gray-800 mb-6 text-center">
+                Passionné par le développement web moderne, je conçois des interfaces réactives et accessibles avec React et Next.js. Expérience en stage (6 mois) et projets personnels. Rigoureux, autonome, et motivé pour rejoindre une équipe dynamique.
             </div>
-            <div className=" mt-4 relative md:my-8 pt-px bg-white w-32 md:w-48">
-                <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-0"></div>
-                <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-0"></div>
-            </div>
-            <ul className=" mt-4 leading-tight tracking-tight text-sm md:text-base w-5/6 md:w-3/4 emoji-list">
-                <li className=" list-pc">Je suis étudiant en informatique. J'ai effectué un stage de 6 mois en développement logiciel et je suis actuellement à la recherche d'opportunités en développement front-end. (Contact : <a className='text-underline' href='mailto:guerciob.matteo@gmail.com'><u>guerciob.matteo@gmail.com</u></a>)</li>
-                <li className=" mt-3 list-building">J'aime créer des logiciels utiles et bien conçus qui résolvent des problèmes concrets.</li>
-                <li className=" mt-3 list-time">En dehors du code, j'aime lire, jouer à des jeux et regarder des vidéos techniques et pédagogiques.</li>
-                <li className=" mt-3 list-star">Je m'intéresse également au développement mobile et aux techniques modernes de l'interface utilisateur.</li>
+            <ul className="text-sm text-gray-700 mb-6 space-y-1 text-left">
+                <li><strong>Localisation :</strong> France</li>
+                <li><strong>Compétences :</strong> HTML, CSS, JavaScript, React, Next.js, Tailwind CSS, Git</li>
+                <li><strong>Email :</strong> <a className="text-blue-600 underline" href="mailto:guerciob.matteo@gmail.com">guerciob.matteo@gmail.com</a></li>
+                <li><strong>CV :</strong> <a className="text-blue-600 underline" href="/files/CV_mattéo.pdf" target="_blank" rel="noopener">Consulter le CV (PDF)</a></li>
+                <li><strong>GitHub :</strong> <a className="text-blue-600 underline" href="https://github.com/upsydown" target="_blank" rel="noopener">upsydown</a></li>
             </ul>
-        </>
+        </div>
     )
 }
 function Education() {
