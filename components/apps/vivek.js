@@ -132,7 +132,7 @@ function About() {
                 <li><strong>Localisation :</strong> France</li>
                 <li><strong>Compétences :</strong> HTML, CSS, JavaScript, React, Next.js, Tailwind CSS, Git</li>
                 <li><strong>Email :</strong> <a className="text-blue-600 underline" href="mailto:guerciob.matteo@gmail.com">guerciob.matteo@gmail.com</a></li>
-                <li><strong>CV :</strong> <a className="text-blue-600 underline" href="/files/CV_mattéo.pdf" target="_blank" rel="noopener">Consulter le CV (PDF)</a></li>
+                <li><strong>CV :</strong> <a className="text-blue-600 underline" href="/files/PHP.pdf" target="_blank" rel="noopener">Consulter le CV (PDF)</a></li>
                 <li><strong>GitHub :</strong> <a className="text-blue-600 underline" href="https://github.com/upsydown" target="_blank" rel="noopener">upsydown</a></li>
             </ul>
         </div>
@@ -400,6 +400,6 @@ function Projects() {
 }
 function Resume() {
     return (
-        <iframe className="h-full w-full" src="/files/CV_mattéo.pdf" title="CV de Matt" frameBorder="0"></iframe>
+        <iframe className="h-full w-full" src="/files/PHP.pdf" title="CV" frameBorder="0"></iframe>
     )
 }
