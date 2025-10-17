@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 
 export default function VsCode() {
+    // Open the public/files folder specifically so the repository README.md is not shown
     const repo = 'upsydown/upsydown.github.io';
-    const github1s = `https://github1s.com/${repo}`;
-    const vscodeDev = `https://vscode.dev/github/${repo}`;
+    const branch = 'main';
+    const filesPath = `public/files`;
+    const github1s = `https://github1s.com/${repo}/tree/${branch}/${filesPath}`;
+    const vscodeDev = `https://vscode.dev/github/${repo}/tree/${branch}/${filesPath}`;
 
     return (
         <div className="h-full w-full bg-ub-cool-grey flex items-center justify-center p-6">
